@@ -19,6 +19,9 @@ public class MainManu {
         System.out.println("7 - Feed a turtle");
         System.out.println("8 - Move an animal");
         System.out.println("9 - Visualisation of the garden");
+        System.out.println("10 - Next year");
+        System.out.println("11 - Add new banned position");
+        System.out.println("12 - Show banned positions");
 
         System.out.println("0 - Exit program");
 

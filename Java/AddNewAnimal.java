@@ -56,35 +56,26 @@ public class AddNewAnimal {
                 newRace = scanner.next();
             }
 
-            switch (enteredTypeOfAnimal) {
-                /*
-                * IntelliJ IDEA suggested this solution :)
-                * Creates objects depends on type of animal
-                * */
-                case "dog" -> {
-                    Dog newObject = new Dog(newName, newAge, petOwner, newRace, "dog");
-                    newObject.setSex(sexForCreationObject);
-                    return newObject;
-                }
-                case "cat" -> {
-                    Cat newObject = new Cat(newName, newAge, petOwner, newRace, "cat");
-                    newObject.setSex(sexForCreationObject);
-                    return newObject;
-                }
-                case "turtle" -> {
-                    Turtle newObject = new Turtle(newName, newAge, petOwner, Turtle.Status.ACTIVE, "turtle");
-                    newObject.setSex(sexForCreationObject);
-                    System.out.println("Status of created turtle is \"ACTIVE\"");
-                    return newObject;
-                }
-                default -> throw new InputMismatchException();
+            if (enteredTypeOfAnimal.equals("dog")){
+                Dog newObject = new Dog(newName, newAge, petOwner, newRace, "dog");
+                newObject.setSex(sexForCreationObject);
+                return newObject;
+            }else if (enteredTypeOfAnimal.equals("cat")){
+                Cat newObject = new Cat(newName, newAge, petOwner, newRace, "cat");
+                newObject.setSex(sexForCreationObject);
+                return newObject;
+            }else if (enteredTypeOfAnimal.equals("turtle")) {
+                Turtle newObject = new Turtle(newName, newAge, petOwner, Turtle.Status.ACTIVE, "turtle");
+                newObject.setSex(sexForCreationObject);
+                System.out.println("Status of created turtle is \"ACTIVE\"");
+                return newObject;
+            } else {
+                throw new InputMismatchException();
             }
 
         } catch (InputMismatchException | NullPointerException e) {
             System.out.println("You entered wrong data, please try again");
         }
-
-
 
         return null;
     }

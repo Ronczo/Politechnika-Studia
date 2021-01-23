@@ -15,6 +15,7 @@ public class AnimalsInTheGarden {
         // Loading list from files animals.txt
         List<Owner> owners = null;
         List<Animal> animals = null;
+        List<BannedPosition> bannedPositions = null;
         try {
             ListOfTheOwners listOfTheOwners = new ListOfTheOwners();
             owners = listOfTheOwners.readListOfTheOwnersFromFile();
@@ -22,7 +23,11 @@ public class AnimalsInTheGarden {
 
             ListOfAnimals listOfAnimals = new ListOfAnimals();
             animals = listOfAnimals.readListOfTheAnimalsFromFile(owners);
-            Owner.setOwnerCount(owners.get(owners.size() - 1).getId());
+            Animal.setAnimalCount(animals.get(animals.size() - 1).getId());
+
+            ReadBannedPositions readBannedPositions = new ReadBannedPositions();
+            bannedPositions = readBannedPositions.readPositions();
+
         } catch (IndexOutOfBoundsException e) {
             System.out.println("There is a problem. Continue the program....");
         }
@@ -67,13 +72,29 @@ public class AnimalsInTheGarden {
                     } else if (selectedOption == 7) {
                         FeedATurtle feedATurtle = new FeedATurtle();
                         feedATurtle.feedTheTurtle(animals);
-                    }else if (selectedOption == 8) {
+                    } else if (selectedOption == 8) {
                         MoveTheAnimal moveTheAnimal = new MoveTheAnimal();
-                        moveTheAnimal.moveAnimal(animals, size);
-                    }else if (selectedOption == 9) {
+                        moveTheAnimal.moveAnimal(animals, size, bannedPositions);
+                    } else if (selectedOption == 9) {
                         GenerateVisualisation generateVisualisation = new GenerateVisualisation();
-                        generateVisualisation.visualisation(animals, size);
-                    }  else {
+                        generateVisualisation.visualisation(animals, size, bannedPositions);
+                    } else if (selectedOption == 10) {
+                        System.out.println("A year has passed....");
+                        BecomeOlder becomeOlder = new BecomeOlder();
+                        becomeOlder.CreatureBecomeOlder(animals, owners);
+                    } else if (selectedOption == 11) {
+                        AddNewBannedPosition addNewBannedPosition = new AddNewBannedPosition();
+                        Saveable newBannedPosition = addNewBannedPosition.addPosition();
+                        if (newBannedPosition != null) {
+                            SaveObjectToFile saveObjectToFile = new SaveObjectToFile();
+                            saveObjectToFile.saveObject(newBannedPosition, true);
+                        }
+                    } else if (selectedOption == 12) {
+                        for (BannedPosition bannedPosition : bannedPositions) {
+                            bannedPosition.showInfo();
+                            System.out.println("--------------------------------");
+                        }
+                    } else {
                         System.out.println("You typed the wrong number, please try again");
                     }
                 }

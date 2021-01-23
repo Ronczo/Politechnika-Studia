@@ -1,12 +1,13 @@
 package pl.edu.pg;
 
 import pl.edu.pg.model.Animal;
+import pl.edu.pg.model.BannedPosition;
 
 import java.util.List;
 
 public class GenerateVisualisation {
 
-    public void visualisation(List<Animal> listOfAnimals, int size){
+    public void visualisation(List<Animal> listOfAnimals, int size, List<BannedPosition> listOfBannedPositions){
         /*
         * This method generates a visualisation of the garden and shows localisation of the animals
          */
@@ -24,6 +25,11 @@ public class GenerateVisualisation {
             String middle = "|";
             for (int j = 1; j <= size; ++j) {
                 String stringToAdd = "__|";
+                for (BannedPosition bannedPosition : listOfBannedPositions) {
+                    if (i == Integer.parseInt(bannedPosition.getPositionX()) && j == Integer.parseInt(bannedPosition.getPositionY())){
+                        stringToAdd = "B_|";
+                    }
+                }
                 for (Animal animal : listOfAnimals) {
                     if (animal.getActualPositionY() == i && animal.getActualPositionX() == j) {
                         stringToAdd = animal.getAnimalType().charAt(0) + "_|";

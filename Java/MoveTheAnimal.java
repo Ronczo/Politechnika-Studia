@@ -1,6 +1,7 @@
 package pl.edu.pg;
 
 import pl.edu.pg.model.Animal;
+import pl.edu.pg.model.BannedPosition;
 import pl.edu.pg.model.Turtle;
 
 
@@ -9,7 +10,7 @@ import java.util.Scanner;
 
 public class MoveTheAnimal {
 
-    public void moveAnimal(List<Animal> animalList, int gardenSize) {
+    public void moveAnimal(List<Animal> animalList, int gardenSize, List<BannedPosition> listOfBannedPositions) {
         /*
         The method moves an animal and saves changes in file animals.txt
          */
@@ -39,31 +40,54 @@ public class MoveTheAnimal {
                 if (moveAnimalTo.equals("right")) {
                     if (animal.getActualPositionX() < gardenSize) {
                         animal.setActualPositionX(animal.getActualPositionX() + 1);
+                        for (BannedPosition bannedPosition : listOfBannedPositions) {
+                            if(animal.getActualPositionX() == Integer.parseInt(bannedPosition.getPositionX()) && animal.getActualPositionY() == Integer.parseInt(bannedPosition.getPositionY())) {
+                                System.out.println("You can't go into banned position!");
+                                animal.setActualPositionX(animal.getActualPositionX() - 1);
+                            }
+                        }
                     } else {
                         System.out.println("You can't move animal outside the Garden!");
                     }
                 }else if (moveAnimalTo.equals("left")) {
                     if (animal.getActualPositionX() > 1) {
                         animal.setActualPositionX(animal.getActualPositionX() - 1);
+                        for (BannedPosition bannedPosition : listOfBannedPositions) {
+                            if(animal.getActualPositionX() == Integer.parseInt(bannedPosition.getPositionX()) && animal.getActualPositionY() == Integer.parseInt(bannedPosition.getPositionY())) {
+                                System.out.println("You can't go into banned position!");
+                                animal.setActualPositionX(animal.getActualPositionX() + 1);
+                            }
+                        }
                     } else {
                         System.out.println("You can't move animal outside the Garden!");
                     }
                 }else if (moveAnimalTo.equals("up")) {
                     if (animal.getActualPositionY() > 1) {
                         animal.setActualPositionY(animal.getActualPositionY() - 1);
+                        for (BannedPosition bannedPosition : listOfBannedPositions) {
+                            if(animal.getActualPositionX() == Integer.parseInt(bannedPosition.getPositionX()) && animal.getActualPositionY() == Integer.parseInt(bannedPosition.getPositionY())) {
+                                System.out.println("You can't go into banned position!");
+                                animal.setActualPositionY(animal.getActualPositionY() + 1);
+                            }
+                        }
                     } else {
                         System.out.println("You can't move animal outside the Garden!");
                     }
                 }else if (moveAnimalTo.equals("down")) {
                     if (animal.getActualPositionY() < gardenSize) {
                         animal.setActualPositionY(animal.getActualPositionY() + 1);
+                        for (BannedPosition bannedPosition : listOfBannedPositions) {
+                            if(animal.getActualPositionX() == Integer.parseInt(bannedPosition.getPositionX()) && animal.getActualPositionY() == Integer.parseInt(bannedPosition.getPositionY())) {
+                                System.out.println("You can't go into banned position!");
+                                animal.setActualPositionY(animal.getActualPositionY() - 1);
+                            }
+                        }
                     } else {
                         System.out.println("You can't move animal outside the Garden!");
                     }
                 }else {
                     System.out.println("You entered wrong destination. Try again.");
                 }
-
 
                 boolean append = false;
 
